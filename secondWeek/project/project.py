@@ -1,17 +1,13 @@
-import uuid
-
 tasks = []
 
 
-def create_task(title, description, status):
-    task = {
-        "id": str(uuid.uuid4())[:4],
-        "title": title,
-        "description": description,
-        "status": status,
-    }
+def create_task(task_id, title, description, status):
+    if any(task["id"] == task_id for task in tasks):
+        print(f"Error: El ID '{task_id}' ya está registrado.")
+        return
+    task = {"id": task_id, "title": title, "description": description, "status": status}
     tasks.append(task)
-    print(f"Tarea '{title}' creada con ID único: {task['id']}")
+    print(f"Tarea '{title}' creada con ID único: {task_id}")
 
 
 def modify_task(task_id, title=None, description=None, status=None):
@@ -36,12 +32,11 @@ def delete_task(task_id):
 
 
 def search_task(keyword):
-    results = [
-        task
-        for task in tasks
-        if keyword.lower() in task["title"].lower()
-        or keyword.lower() in task["description"].lower()
-    ]
+    results = filter(
+        lambda task: keyword.lower() in task["title"].lower()
+        or keyword.lower() in task["description"].lower(),
+        tasks,
+    )
     for task in results:
         print(
             f"ID: {task['id']}, Título: {task['title']}, Descripción: {task['description']}, Estatus: {task['status']}"
@@ -78,12 +73,13 @@ def main():
 
         match choice:
             case "1":
+                task_id = int(input("ID: "))
                 title = input("Título: ")
                 description = input("Descripción: ")
                 status = input("Estatus: ")
-                create_task(title, description, status)
+                create_task(task_id, title, description, status)
             case "2":
-                task_id = input("ID de la tarea a modificar: ")
+                task_id = int(input("ID de la tarea a modificar: "))
                 title = input("Nuevo título (dejar en blanco para no cambiar): ")
                 description = input(
                     "Nueva descripción (dejar en blanco para no cambiar): "
@@ -91,9 +87,7 @@ def main():
                 status = input("Nuevo estatus (dejar en blanco para no cambiar): ")
                 modify_task(task_id, title, description, status)
             case "3":
-                task_id = input(
-                    "ID de la tarea a eliminar (dejar en blanco para no eliminar): "
-                )
+                task_id = int(input("ID de la tarea a eliminar: "))
                 delete_task(task_id)
             case "4":
                 keyword = input("Palabra clave para buscar: ")
