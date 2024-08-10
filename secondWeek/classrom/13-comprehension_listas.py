@@ -1,3 +1,12 @@
+'''
+Se utiliza list comprehension cuando se quiere crear una nueva lista basada en valores de una lista existente. Esto con el fin de FILTRAR elementos según un valor dado.
+
+newlist = [expression for item in iterable if condition == True]
+
+ejemplo:
+newlist = [x for x in fruits if x !="apple"]
+'''
+
 users = [
     {"name": "Ronald", "status": True},
     {"name": "Ronald 1", "status": True},
