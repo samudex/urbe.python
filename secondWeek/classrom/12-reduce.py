@@ -1,5 +1,11 @@
 from functools import reduce
 
+"""
+Reduce Se utiliza cuando quieres combinar todos los elementos de una colección de datos en un solo valor.
+    reduce(función, iterable)
+"""
+
+
 numbers = list(range(0, 100))
 # print(numbers)
 
