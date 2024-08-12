@@ -7,7 +7,7 @@ def create_task(task_id, title, description, status):
         return
     task = {"id": task_id, "title": title, "description": description, "status": status}
     tasks.append(task)
-    print(f"Tarea '{title}' creada con ID único: {task_id}")
+    print(f"Tarea '{title}' creada con ID: {task_id}")
 
 
 def modify_task(task_id, title=None, description=None, status=None):
@@ -17,7 +17,7 @@ def modify_task(task_id, title=None, description=None, status=None):
                 task["title"] = title
             if description:
                 task["description"] = description
-            if status:
+            if status is not None:
                 task["status"] = status
             print(f"Tarea '{task_id}' modificada.")
             return
@@ -26,7 +26,6 @@ def modify_task(task_id, title=None, description=None, status=None):
 
 def delete_task(task_id):
     global tasks
-    # creando una lista y sobreescribiendo el tasks global. La nueva lista no incluye el task_id ingresado.
     tasks = [task for task in tasks if task["id"] != task_id]
     print(f"Tarea con ID '{task_id}' eliminada.")
 
@@ -39,7 +38,7 @@ def search_task(keyword):
     )
     for task in results:
         print(
-            f"ID: {task['id']}, Título: {task['title']}, Descripción: {task['description']}, Estatus: {task['status']}"
+            f"ID: {task['id']}, Título: {task['title']}, Descripción: {task['description']}, Estatus: {'Completada' if task['status'] else 'Pendiente'}"
         )
 
 
@@ -47,14 +46,14 @@ def filter_tasks(status):
     results = [task for task in tasks if task["status"] == status]
     for task in results:
         print(
-            f"ID: {task['id']}, Título: {task['title']}, Descripción: {task['description']}, Estatus: {task['status']}"
+            f"ID: {task['id']}, Título: {task['title']}, Descripción: {task['description']}, Estatus: {'Completada' if task['status'] else 'Pendiente'}"
         )
 
 
 def list_tasks():
     for task in tasks:
         print(
-            f"ID: {task['id']}, Título: {task['title']}, Descripción: {task['description']}, Estatus: {task['status']}"
+            f"ID: {task['id']}, Título: {task['title']}, Descripción: {task['description']}, Estatus: {'Completada' if task['status'] else 'Pendiente'}"
         )
 
 
@@ -76,7 +75,12 @@ def main():
                 task_id = int(input("ID: "))
                 title = input("Título: ")
                 description = input("Descripción: ")
-                status = input("Estatus: ")
+                status = (
+                    input(
+                        "Estatus (True para completada, False para pendiente): "
+                    ).lower()
+                    == "true"
+                )
                 create_task(task_id, title, description, status)
             case "2":
                 task_id = int(input("ID de la tarea a modificar: "))
@@ -84,7 +88,10 @@ def main():
                 description = input(
                     "Nueva descripción (dejar en blanco para no cambiar): "
                 )
-                status = input("Nuevo estatus (dejar en blanco para no cambiar): ")
+                status_input = input(
+                    "Nuevo estatus (True para completada, False para pendiente, dejar en blanco para no cambiar): "
+                ).lower()
+                status = None if status_input == "" else status_input == "true"
                 modify_task(task_id, title, description, status)
             case "3":
                 task_id = int(input("ID de la tarea a eliminar: "))
@@ -93,7 +100,12 @@ def main():
                 keyword = input("Palabra clave para buscar: ")
                 search_task(keyword)
             case "5":
-                status = input("Estatus para filtrar: ")
+                status = (
+                    input(
+                        "Estatus para filtrar (True para completada, False para pendiente): "
+                    ).lower()
+                    == "true"
+                )
                 filter_tasks(status)
             case "6":
                 list_tasks()
