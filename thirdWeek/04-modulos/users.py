@@ -1,12 +1,14 @@
 def get_users():
-    print('get users')
+    print('Get users')
 
 
-def insert_users():
+def insert_user():
     print('Insert user')
 
-print('main.py', __name__)
+
+print('users.py', __name__)
+
 
 if __name__ == '__main__':
     get_users()
-    insert_users()
+    insert_user()

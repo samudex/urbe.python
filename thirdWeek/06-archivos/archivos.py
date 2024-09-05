@@ -1,14 +1,14 @@
-#file = open('./06-archivos/data.txt', 'r')
+# file = open('./06-archivos/data.txt', 'r')
 file = open('./data.txt', 'r')
 
-#lee linea por linea
+# lee linea por linea
 print(file.readline())
 print(file.readline())
 
-#lee todo el archivo
+# lee todo el archivo, no se puede usar read y readline en el mismo archivo
 print(file.read())
 
-#cierra el archivo
+# cierra el archivo
 file.close()
 
 '''
