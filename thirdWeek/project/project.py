@@ -68,10 +68,22 @@ class SistemaBancario:
                 return user
         return None
 
+    def is_account_number_unique(self, account_number):
+        for user in self.users:
+            if user.cuenta and user.cuenta.numero_cuenta == account_number:
+                return False
+        return True
+
     def create_bank_account(self):
         user = self.get_logged_in_user()
         if user.cuenta is None:
-            account_number = input("Número de cuenta: ")
+            while True:
+                account_number = input("Número de cuenta: ")
+                if self.is_account_number_unique(account_number):
+                    break
+                else:
+                    print(
+                        "El número de cuenta ya existe, por favor intente otro número")
             initial_balance = float(input("Saldo inicial: "))
             user.cuenta = Cuenta(account_number, initial_balance)
             print("Cuenta de banco creada exitosamente.")
