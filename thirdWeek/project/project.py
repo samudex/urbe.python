@@ -158,7 +158,7 @@ class SistemaBancario:
                 print(
                     f"\n*******\nUsuario Actual: {user.nombre} {user.apellido}")
                 if user.cuenta:
-                    print(f"Saldo Actual: {user.cuenta.saldo} USD")
+                    print(f"Saldo Actual: $ {user.cuenta.saldo:.2f}")
                 else:
                     print("Usted no posee cuenta bancaria.")
                 print("\nMenú principal:")
