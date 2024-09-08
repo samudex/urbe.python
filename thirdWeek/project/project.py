@@ -78,7 +78,10 @@ class SistemaBancario:
         user = self.get_logged_in_user()
         if user.cuenta is None:
             while True:
-                account_number = input("Número de cuenta: ")
+                account_number = input("Número de cuenta (12 digitos): ")
+                if len(account_number) != 12 or not account_number.isdigit():
+                    print("La cuenta bancaria debe poseer 12 digitos.")
+                    continue
                 if self.is_account_number_unique(account_number):
                     break
                 else:
