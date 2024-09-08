@@ -87,16 +87,31 @@ class SistemaBancario:
                 else:
                     print(
                         "El número de cuenta ya existe, por favor intente otro número")
-            initial_balance = float(input("Saldo inicial: "))
+            initial_balance = self.get_valid_amount("Saldo inicial: ")
             user.cuenta = Cuenta(account_number, initial_balance)
             print("Cuenta de banco creada exitosamente.")
         else:
             print("Actualmente ya tienes una cuenta de banco.")
 
+    def get_valid_amount(self, prompt):
+        while True:
+            try:
+                amount_str = input(prompt).replace(',', '.')
+                amount = float(amount_str)
+                if amount < 0:
+                    print("El monto no puede ser negativo.")
+                    continue
+                if len(str(amount).split(".")[1]) > 2:
+                    print("El monto no puede tener más de 2 decimales.")
+                    continue
+                return amount
+            except ValueError:
+                print("Por favor, ingrese un número válido.")
+
     def deposit(self):
         user = self.get_logged_in_user()
         if user.cuenta:
-            amount = float(input("Monto a depositar: "))
+            amount = self.get_valid_amount("Monto a depositar: ")
             user.cuenta.depositar(amount)
         else:
             print("Usted no posee una cuenta de banco.")
@@ -104,7 +119,7 @@ class SistemaBancario:
     def withdraw(self):
         user = self.get_logged_in_user()
         if user.cuenta:
-            amount = float(input("Monto a retirar: "))
+            amount = self.get_valid_amount("Monto a retirar: ")
             user.cuenta.retirar(amount)
         else:
             print("Usted no posee una cuenta de banco.")
@@ -122,7 +137,7 @@ class SistemaBancario:
                     recipient_user = u
                     break
             if recipient_user and recipient_user.cuenta:
-                amount = float(input("Monto atransferir: "))
+                amount = self.get_valid_amount("Monto a transferir: ")
                 if amount > 0 and amount <= user.cuenta.saldo:
                     user.cuenta.retirar(amount)
                     recipient_user.cuenta.depositar(amount)
@@ -130,7 +145,7 @@ class SistemaBancario:
                 else:
                     print("Fondos insuficientes o monto inválido.")
             else:
-                print("Destinanario no encontrado o no posee una cuenta de banco.")
+                print("Destinatario no encontrado o no posee una cuenta de banco.")
         else:
             print("Usted no posee una cuenta bancaria.")
 
