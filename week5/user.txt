@@ -1,0 +1,52 @@
+{
+  "email": "admin@gmail.com",
+  "password": "123456789"
+}
+
+{
+  "name": "John Doe",
+  "email": "user@gmail.com",
+  "password": "123456789"
+}
+
+
+----------YA ESTA LISTO:
+
+
+
+ENDPOINTS
+1. [POST] /auth/user/login: Login de usuarios
+2. [POST ]/auth/admin/login: Login de administradores
+3. [POST] /auth/user/register: Registro de usuarios
+
+
+---------HAY QUE HACERLO:
+
+B) Coworking (Solo administradores pueden acceder)
+1. [GET] /coworking: Obtener todos los coworking
+2. [GET] /coworking/{id}: Obtener coworking por id
+3. [POST] /coworking: Crear coworking
+4. [PUT] /coworking/{id}: Actualizar coworking por id
+5. [DELETE] /coworking/{id}: Eliminar coworking por id
+
+C) Reservation
+1. [GET] /reservation: Listar todas las reservaciones
+2. [GET] /reservation/{id}: Obtener reservación por id
+3. [POST] /reservation: Crear reservación
+4. [PUT] /reservation/{id}: Actualizar reservacion por id
+5. [DELETE] /reservation/{id}: Eliminar reservacion por id
+
+
+Notas:
+- Solo los administradores tienen acceso a las rutas de coworking por lo
+que se debe validar el role.
+
+- Las rutas de coworking y reservation deben estar protegidas con un
+JWT, por lo que cada vez que se quiera acceder a una ruta se debe
+enviar y validar el JWT.
+
+- En el siguiente proyecto muestro como utilizar el JWT:
+https://github.com/itsronalds/CoworkReserveAPI
+
+- Usuarios interactuarán con los endpoints de reservation
+- Los administradores interactuarán con los endpoints de coworking.
