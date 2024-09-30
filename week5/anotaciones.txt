@@ -1,3 +1,15 @@
+---------Consejo de Carlos para dependencias en vscode:
+ctrl+shift+p
+python:select interpreter
+y elegir la opcion del venv
+
+---------Quitar contraseña root de mysql:
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY '';
+
+
+---------Usuarios
+
 {
   "email": "admin@gmail.com",
   "password": "123456789"
@@ -12,9 +24,8 @@
 
 ----------YA ESTA LISTO:
 
-
-
 ENDPOINTS
+A)	Auth
 1. [POST] /auth/user/login: Login de usuarios
 2. [POST ]/auth/admin/login: Login de administradores
 3. [POST] /auth/user/register: Registro de usuarios
@@ -37,7 +48,8 @@ C) Reservation
 5. [DELETE] /reservation/{id}: Eliminar reservacion por id
 
 
-Notas:
+---------Notas:
+
 - Solo los administradores tienen acceso a las rutas de coworking por lo
 que se debe validar el role.
 
